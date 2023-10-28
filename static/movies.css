@@ -1,0 +1,18 @@
+.tier-bronze {
+color: brown;
+}
+
+.tier-silver{
+color: grey;
+}
+
+.tier-gold{
+color: #cc9900;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(1fr, 1fr);
+    gap: 10px;
+    list-style: none;
+}
