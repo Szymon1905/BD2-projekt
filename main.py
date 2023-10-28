@@ -135,11 +135,11 @@ class User(UserMixin):
 
 @log_manager.user_loader
 def load_user(user_id):
-
     user = User(user_id)
     return user
 
-@app.route("/login", methods=["POST", "GET"] )  # logowanie na konto
+
+@app.route("/login", methods=["POST", "GET"])  # logowanie na konto
 def login():
     if request.method == 'POST':
         nick = request.form.get('nick')
@@ -166,6 +166,13 @@ def login():
 @login_required
 def profile():
     return render_template("profile.html")
+
+
+@app.route("/logout", methods=["POST", "GET"])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
