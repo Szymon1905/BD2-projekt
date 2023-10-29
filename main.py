@@ -97,27 +97,28 @@ def connect_to_db():
 
 
 class movie:
-    def __init__(self, tytul, tier):
-        self.tytul = tytul
+    def __init__(self, title, tier, genre):
+        self.title = title
         self.tier = tier
+        self.genre = genre
 
 
 # TODO do modyfikacji
 def get_data_about_movies(conn):
     cur = conn.cursor()
     cur.execute("""
-    SELECT F.tytul_filmu, t.typ_konta FROM filmy F 
-    INNER JOIN Typy_kont t ON F.id_typu_konta = t.id_typu order by tytul_filmu;
+    SELECT Mo.movie_title, Ge.genre_name, acc_t.account_type
+    FROM movies Mo
+    INNER JOIN account_types acc_t ON Mo.account_type_id = acc_t.account_type_id 
+    INNER JOIN genres Ge ON Mo.genre_id = Ge.genre_id order by Mo.account_type_id;
     """)
 
     rows = cur.fetchall()
-    print("Tytul filmu - Tier_konta")
-    for data in rows:
-        print(str(data[0]), ' - ', str(data[1]))
+
 
     returned_movies = []
     for data in rows:
-        mov = movie(tytul=str(data[0]), tier=str(data[1]))
+        mov = movie(title=str(data[0]), genre=str(data[1]), tier=str(data[2]))
         returned_movies.append(mov)
 
     print('Data fetched successfully')

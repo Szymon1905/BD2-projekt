@@ -1,18 +1,59 @@
-.tier-bronze {
-color: brown;
+table {
+  border-collapse: collapse;
+  border: 1px solid black;
+  text-align: center;
+  vertical-align: middle;
 }
 
-.tier-silver{
-color: grey;
+th, td {
+	border: 1px solid black;
+	padding: 8px;
 }
 
-.tier-gold{
-color: #cc9900;
+thead th {
+  width: 25%;
 }
 
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(1fr, 1fr);
-    gap: 10px;
-    list-style: none;
+thead {
+  background-color: #333;
+  color: white;
+  font-size: 0.875rem;
+	text-transform: uppercase;
+	letter-spacing: 2%;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+caption {
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #eee;
+}
+
+
+
+.Gold {
+  background-color: gold;
+  font-weight: bold;
+}
+.Silver {
+  background-color: silver;
+  font-weight: bold;
+}
+
+.Bronze {
+  background-color: #523314;
+  font-weight: bold;
 }
