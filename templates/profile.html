@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/static/movies.css" />
 </head>
 <body>
+    <a href="{{ url_for('logout') }}">Logout</a>
     <table>
       <caption>Movies of user {{ nick }} of tier {{ account_type }} </caption>
       <thead>

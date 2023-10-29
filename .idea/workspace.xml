@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e2526c7e-212d-4567-aa7b-55301b4d0406" name="Changes" comment="dodano wyświtlanie tablicy filmów">
+    <list default="true" id="e2526c7e-212d-4567-aa7b-55301b4d0406" name="Changes" comment="Działa wyświetlanie filmów dostępnych dla użytkownika danego tieru">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +87,14 @@
       <option name="project" value="LOCAL" />
       <updated>1698552822468</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Działa wyświetlanie filmów dostępnych dla użytkownika danego tieru">
+      <created>1698556831272</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1698556831272</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -106,7 +111,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="unfinshed css" />
     <MESSAGE value="dodano wyświtlanie tablicy filmów" />
-    <option name="LAST_COMMIT_MESSAGE" value="dodano wyświtlanie tablicy filmów" />
+    <MESSAGE value="Działa wyświetlanie filmów dostępnych dla użytkownika danego tieru" />
+    <option name="LAST_COMMIT_MESSAGE" value="Działa wyświetlanie filmów dostępnych dla użytkownika danego tieru" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
