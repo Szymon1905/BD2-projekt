@@ -1,14 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Profil</title>
-    </head>
-
-    <body>
-        <p>Strona dostępna tylko za zalogowaniem</p>
-        <form method="POST" action="/logout">
-                <button type="submit">Logout</button>
-        </form>
-    </body>
+<html>
+<head>
+    <title>Movies</title>
+    <link rel="stylesheet" href="/static/movies.css" />
+</head>
+<body>
+    <table>
+      <caption>Movies of user {{ nick }} of tier {{ account_type }} </caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Genre</th>
+          <th>Tier</th>
+        <tr>
+      </thead>
+      <tbody>
+      {% for movie in movies %}
+        <tr>
+          <td>{{ movie.title }}</td>
+          <td>{{ movie.genre }}</td>
+          <td class="{% if movie.tier == 'Gold' %}Gold{% elif movie.tier == 'Silver' %}Silver{% else %}Bronze{% endif %}" >{{ movie.tier }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+</body>
 </html>
+

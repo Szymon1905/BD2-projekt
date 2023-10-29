@@ -22,5 +22,12 @@
             <p class="bottom">Don't have an account?  <a class="bottom" href="{{url_for('register')}}"> Sign Up here</a></p>
           </div>
         </div>
+    {% with messages = get_flashed_messages()  %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <p>{{msg}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </body>
 </html>

@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, render_template, request, flash, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user, login_manager
@@ -104,24 +106,45 @@ class movie:
 
 
 # TODO do modyfikacji
-def get_data_about_movies(conn):
+def get_data_about_movies(conn, tier=None):
     cur = conn.cursor()
-    cur.execute("""
-    SELECT Mo.movie_title, Ge.genre_name, acc_t.account_type
-    FROM movies Mo
-    INNER JOIN account_types acc_t ON Mo.account_type_id = acc_t.account_type_id 
-    INNER JOIN genres Ge ON Mo.genre_id = Ge.genre_id order by Mo.account_type_id;
-    """)
+
+    if tier is None or tier == 4:
+        cur.execute("""
+                SELECT Mo.movie_title, Ge.genre_name, acc_t.account_type
+                FROM movies Mo
+                INNER JOIN account_types acc_t ON Mo.account_type_id = acc_t.account_type_id 
+                INNER JOIN genres Ge ON Mo.genre_id = Ge.genre_id
+                ORDER BY Mo.account_type_id;
+        """)
+    elif tier == 3:
+        cur.execute("""
+                SELECT Mo.movie_title, Ge.genre_name, acc_t.account_type
+                FROM movies Mo
+                INNER JOIN account_types acc_t ON Mo.account_type_id = acc_t.account_type_id 
+                INNER JOIN genres Ge ON Mo.genre_id = Ge.genre_id 
+                WHERE Mo.account_type_id < 4
+                ORDER BY Mo.account_type_id;""")
+    elif tier == 2:
+        cur.execute("""
+                SELECT Mo.movie_title, Ge.genre_name, acc_t.account_type
+                FROM movies Mo
+                INNER JOIN account_types acc_t ON Mo.account_type_id = acc_t.account_type_id 
+                INNER JOIN genres Ge ON Mo.genre_id = Ge.genre_id 
+                WHERE Mo.account_type_id = 2
+                ORDER BY Mo.account_type_id;
+                """)
+    else:
+        print("Invalid 'tier' value:", tier)
 
     rows = cur.fetchall()
-
 
     returned_movies = []
     for data in rows:
         mov = movie(title=str(data[0]), genre=str(data[1]), tier=str(data[2]))
         returned_movies.append(mov)
 
-    print('Data fetched successfully')
+    print('Data fetched successfully, total rows: ',len(returned_movies))
     return returned_movies
 
 
@@ -149,14 +172,21 @@ def login():
         conn = connect_to_db()
         with conn:
             with conn.cursor() as cursor:
-                cursor.execute(f"""SELECT account_id, nick, password FROM accounts
+                cursor.execute(f"""SELECT ac.account_id, ac.nick, ac.password, ac.account_type_id, at.account_type FROM accounts ac
+                                    INNER JOIN account_types at ON at.account_type_id = ac.account_type_id
                  WHERE nick LIKE '{nick}' and password LIKE '{password}' """)
                 user = cursor.fetchone()
                 if user:
                     flash('Logged in successfully', 'info')
                     account_id = user[0]
+                    account_type_id = user[3]
+                    account_type = user[4]
                     login_user(load_user(account_id))
-                    return redirect(url_for('profile'))
+
+                    movies = get_data_about_movies(conn=conn, tier=int(account_type_id))
+
+                    return redirect(url_for('profile', nick=nick, movies=movies,
+                                            account_type_id=int(account_type_id), account_type=account_type))
                 else:
                     flash('Invalid username or password', 'error')
 
@@ -166,7 +196,14 @@ def login():
 @app.route("/profile")
 @login_required
 def profile():
-    return render_template("profile.html")
+    nick = request.args.get('nick')
+    account_type_id = request.args.get('account_type_id')
+    account_type = request.args.get('account_type')
+
+    print('account_type_id: ',account_type_id)
+    conn = connect_to_db()
+    returned_movies = get_data_about_movies(conn=conn, tier=int(account_type_id))
+    return render_template("profile.html", nick=nick, movies=returned_movies, account_type=account_type)
 
 
 @app.route("/logout", methods=["POST", "GET"])
