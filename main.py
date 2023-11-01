@@ -271,11 +271,11 @@ def get_data_about_users():
     conn = connect_to_db()
     with conn:
         with conn.cursor() as cursor:
-            cursor.execute(f""" SELECT ACC.account_id, ACC.nick, acc_t.account_type
+            cursor.execute(f""" SELECT ACC.account_id, ACC.nick, acc_t.account_type, ACC.account_type_id
                                 FROM accounts ACC
                                 INNER JOIN account_types acc_t
                                 ON ACC.account_type_id = acc_t.account_type_id
-                                order by acc_t.account_type, ACC.nick ; """)
+                                order by acc_t.account_type_id, ACC.account_id ; """)
             rows = cursor.fetchall()
 
     returned_users = []
