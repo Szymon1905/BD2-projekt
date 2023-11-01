@@ -4,8 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e2526c7e-212d-4567-aa7b-55301b4d0406" name="Changes" comment="dodano opcje usuwania konta i ładniejsze guziki">
+    <list default="true" id="e2526c7e-212d-4567-aa7b-55301b4d0406" name="Changes" comment="zmieniono kolejność wyświtlania userów w tabeli dla admina">
+      <change afterPath="$PROJECT_DIR$/static/add_movie.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/add_movie.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/delete_movie_panel.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/modify_movie_panel.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL_files/postgresql baza.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SQL_files/postgresql baza.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/user_acc_managment.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/user_acc_managment.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Movies.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Movies.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin_panel.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698556831272</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="zmieniono kolejność wyświtlania userów w tabeli dla admina">
+      <option name="closed" value="true" />
+      <created>1698868404337</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1698868404337</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,9 +219,10 @@
     <MESSAGE value="dodano wyświtlanie tablicy filmów" />
     <MESSAGE value="Działa wyświetlanie filmów dostępnych dla użytkownika danego tieru" />
     <MESSAGE value="dodano opcje usuwania konta i ładniejsze guziki" />
-    <option name="LAST_COMMIT_MESSAGE" value="dodano opcje usuwania konta i ładniejsze guziki" />
+    <MESSAGE value="zmieniono kolejność wyświtlania userów w tabeli dla admina" />
+    <option name="LAST_COMMIT_MESSAGE" value="zmieniono kolejność wyświtlania userów w tabeli dla admina" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/BD2_projekt$BD2_projekt.coverage" NAME="BD2-projekt Coverage Results" MODIFIED="1698868224646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/BD2_projekt$BD2_projekt.coverage" NAME="BD2-projekt Coverage Results" MODIFIED="1698875162383" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

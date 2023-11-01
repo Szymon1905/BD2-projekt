@@ -84,6 +84,9 @@ CHECK (length(nick) > 3);
 ALTER TABLE accounts
 ALTER COLUMN password set not null;
 
+ALTER TABLE movies
+ADD CONSTRAINT movie_title_unique UNIQUE (movie_title);
+
 -- ALTER TABLE Konta DROP CONSTRAINT hasło_check_dlugosc;
 
 --sekwencja do dodawania filmow
@@ -125,7 +128,9 @@ CREATE TABLE IF NOT EXISTS movies (
   description TEXT,
   genre_id INT REFERENCES genres(genre_id),
   account_type_id INT NOT NULL
-);	
+);
+
+A
 
 
 SELECT Mo.movie_title, Ge.genre_name, acc_t.account_type

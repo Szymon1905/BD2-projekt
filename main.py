@@ -30,11 +30,11 @@ def authors():
 @app.route("/movies")
 def movies():
     conn = connect_to_db()
-    movies_list = get_data_about_movies(conn)
+    movies_list = get_data_about_movies()
     return render_template("Movies.html", movies=movies_list)
 
 
-@app.route("/register", methods=["POST", "GET"])  # rehjestracja konta
+@app.route("/register", methods=["POST", "GET"])  # rejestracja konta
 def register():
     if request.method == 'POST':  # jeżeli wysyłamy dane to rejestrujemy
 
@@ -109,7 +109,8 @@ class movie:
 
 
 # TODO do modyfikacji
-def get_data_about_movies(conn, tier=None):
+def get_data_about_movies(tier=None):
+    conn = connect_to_db()
     cur = conn.cursor()
 
     if tier is None or tier == 4:
@@ -206,7 +207,7 @@ def login():
 
                         login_user(load_user(account_id))
 
-                        movies_data = get_data_about_movies(conn=conn, tier=int(account_type_id))
+                        movies_data = get_data_about_movies(tier=int(account_type_id))
 
                         return redirect(url_for('profile', nick=nick, movies=movies_data,
                                                 account_type_id=int(account_type_id), account_type=account_type))
@@ -223,8 +224,7 @@ def profile():
     account_type_id = request.args.get('account_type_id')
     account_type = request.args.get('account_type')
 
-    conn = connect_to_db()
-    returned_movies = get_data_about_movies(conn=conn, tier=int(account_type_id))
+    returned_movies = get_data_about_movies(tier=int(account_type_id))
 
     return render_template("profile.html", nick=nick, movies=returned_movies, account_type=account_type)
 
@@ -252,12 +252,14 @@ def delete_account():
     return redirect(url_for('index'))
 
 
-@app.route("/admin_panel",methods=["POST", "GET"])
+@app.route("/admin_panel", methods=["POST", "GET"])
 @login_required
 def admin_panel():
     nick = request.args.get('nick')
     users_data = get_data_about_users()
-    return render_template("admin_panel.html", nick=nick, users=users_data)
+    movie_data = get_data_about_movies()
+
+    return render_template("admin_panel.html", nick=nick, users=users_data, movies=movie_data)
 
 
 class Users_data:
@@ -266,7 +268,7 @@ class Users_data:
         self.nick = nick
         self.id = id
 
-# todo czy zamyka połączenie samemu ?
+
 def get_data_about_users():
     conn = connect_to_db()
     with conn:
@@ -285,6 +287,48 @@ def get_data_about_users():
 
     print('Data fetched successfully, total rows: ', len(returned_users))
     return returned_users
+
+
+# todo wybór genre w add movie nie jest dynamiczny i nie sprzężony z bazą danych, trzeba zdecydować jak zrobić
+
+# todo user ma dostep do admin panel i to jest źle
+
+@app.route('/add_movie', methods=["POST", "GET"])
+@login_required
+def add_movie():
+    movies_data = get_data_about_movies()
+    if request.method == 'POST':
+        title = request.form.get('title')
+        description = request.form.get('description')
+        required_account_type = request.form.get('required_account_type')
+        genre_id = request.form.get('genre_id')
+
+        try:
+            conn = connect_to_db()
+            with conn:
+                with conn.cursor() as cursor:
+                    cursor.execute(f""" INSERT INTO movies (movie_id, movie_title, account_type_id, description, genre_id)
+                                        VALUES (nextval('account_id_seq'), '{title}', {required_account_type}, '{description}',{genre_id})""")
+        except Exception:
+            flash('Failed to add movie', 'error')
+            return render_template("add_movie.html", movies=movies_data)
+
+        flash('Succesfully added new movie', 'info')
+        return render_template("add_movie.html", movies=movies_data)
+    else:
+        return render_template("add_movie.html", movies=movies_data)
+
+
+@app.route('/admin_panel/delete_movie', methods=["POST", "GET"])
+@login_required
+def delete_movie():
+    return render_template("delete_movie_panel.html")
+
+
+@app.route('/admin_panel/modify_movie', methods=["POST", "GET"])
+@login_required
+def modify_movie():
+    return render_template("modify_movie_panel.html")
 
 
 if __name__ == '__main__':
