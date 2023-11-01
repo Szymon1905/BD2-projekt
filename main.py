@@ -147,7 +147,7 @@ def get_data_about_movies(conn, tier=None):
         mov = movie(title=str(data[0]), genre=str(data[1]), tier=str(data[2]))
         returned_movies.append(mov)
 
-    print('Data fetched successfully, total rows: ',len(returned_movies))
+    print('Data fetched successfully, total rows: ', len(returned_movies))
     return returned_movies
 
 
@@ -160,12 +160,13 @@ class User(UserMixin):
         self.id = user_id
 
 
+
 @log_manager.user_loader
 def load_user(user_id):
     user = User(user_id)
     return user
 
-
+# todo zmienić na /login/<int:user_id>
 @app.route("/login", methods=["POST", "GET"])  # logowanie na konto
 def login():
     if request.method == 'POST':
@@ -188,9 +189,11 @@ def login():
 
                     movies = get_data_about_movies(conn=conn, tier=int(account_type_id))
 
+
                     return redirect(url_for('profile', nick=nick, movies=movies,
                                             account_type_id=int(account_type_id), account_type=account_type))
                 else:
+
                     flash('Invalid username or password', 'error')
 
     return render_template("Login.html")
@@ -203,15 +206,33 @@ def profile():
     account_type_id = request.args.get('account_type_id')
     account_type = request.args.get('account_type')
 
-    print('account_type_id: ',account_type_id)
+    print('account_type_id: ', account_type_id)
     conn = connect_to_db()
     returned_movies = get_data_about_movies(conn=conn, tier=int(account_type_id))
+
     return render_template("profile.html", nick=nick, movies=returned_movies, account_type=account_type)
 
 
 @app.route("/logout", methods=["POST", "GET"])
 @login_required
 def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
+def delete_acocunt(account_id):
+    conn = connect_to_db()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(f""" DELETE from accounts where accounts.account_id = {account_id} """)
+
+
+
+@app.route("/delete_account")
+@login_required
+def delete_account():
+    user_id = current_user.get_id()
+    delete_acocunt(user_id)
     logout_user()
     return redirect(url_for('index'))
 

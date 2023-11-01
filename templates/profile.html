@@ -3,9 +3,16 @@
 <head>
     <title>Movies</title>
     <link rel="stylesheet" href="/static/movies.css" />
+    <link rel="stylesheet" href="/static/user_acc_managment.css" />
 </head>
 <body>
-    <a href="{{ url_for('logout') }}">Logout</a>
+    <div class="container">
+        <div class="button-container">
+            <button class="button" onclick="location.href='{{ url_for('logout') }}'">Logout</button>
+            <button class="button" onclick="location.href='{{ url_for('delete_account') }}'">Delete Account</button>
+        </div>
+    </div>
+
     <table>
       <caption>Movies of user {{ nick }} of tier {{ account_type }} </caption>
       <thead>
