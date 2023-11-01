@@ -1,7 +1,4 @@
-import json
-
 from flask import Flask, render_template, request, flash, redirect, url_for, session
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user, login_manager
 import psycopg2
 
@@ -12,11 +9,11 @@ app.config['SECRET_KEY'] = 'AAAAAAAAAAA'  # Replace with a strong, random secret
 log_manager = LoginManager()
 log_manager.init_app(app)
 
-DB_NAME = "postgres"
-DB_USER = "postgres"
-DB_PASS = "famished"
-DB_HOST = "localhost"
-DB_PORT = "5432"
+app.config['DATABASE_USER'] = 'fdggxsxy'
+app.config['DATABASE_PASSWORD'] = 'fblPAJWqVJO-YUs7MyV6Itaje-NMrEA5'
+app.config['DATABASE_NAME'] = 'fdggxsxy'
+app.config['DATABASE_HOST'] = 'flora.db.elephantsql.com'
+app.config['DATABASE_PORT'] = 5432
 
 
 @app.route('/')  # domyślna strona startowa strona
@@ -91,7 +88,13 @@ def coming_soon():
 
 def connect_to_db():
     try:
-        conn = psycopg2.connect(database=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST, port=DB_PORT)
+        conn = psycopg2.connect(
+            user=app.config['DATABASE_USER'],
+            password=app.config['DATABASE_PASSWORD'],
+            dbname=app.config['DATABASE_NAME'],
+            host=app.config['DATABASE_HOST'],
+            port=app.config['DATABASE_PORT']
+        )
         print("Database connected successfully")
         return conn
     except Exception:
