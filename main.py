@@ -167,7 +167,7 @@ def load_user(user_id):
     return user
 
 
-# todo zmienić na /login/<int:user_id>
+# todo zmienić na /login/<int:user_id> aby pozbyćsię parametórw w URL
 @app.route("/login", methods=["POST", "GET"])  # logowanie na konto
 def login():
     if request.method == 'POST':
@@ -289,7 +289,7 @@ def get_data_about_users():
     return returned_users
 
 
-# todo wybór genre w add movie nie jest dynamiczny i nie sprzężony z bazą danych, trzeba zdecydować jak zrobić
+# todo wybór genre w add movie nie jest dynamiczny i nie sprzężony z bazą danych, trzeba zdecydować czy zmienić
 
 # todo user ma dostep do admin panel i to jest źle
 
@@ -318,13 +318,13 @@ def add_movie():
     else:
         return render_template("add_movie.html", movies=movies_data)
 
-
+#TODO usuwanie filmu
 @app.route('/admin_panel/delete_movie', methods=["POST", "GET"])
 @login_required
 def delete_movie():
     return render_template("delete_movie_panel.html")
 
-
+#TODO modyfikacja filmu
 @app.route('/admin_panel/modify_movie', methods=["POST", "GET"])
 @login_required
 def modify_movie():
