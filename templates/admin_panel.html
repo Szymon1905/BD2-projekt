@@ -2,16 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/static/user_acc_managment.css" />
+    <link rel="stylesheet" href="/static/admin_panel.css" />
 </head>
 <body>
-
+    <div class="container">
+        <div class="button-container">
+            <button class="button" onclick="location.href='{{ url_for('logout') }}'">Logout</button>
+        </div>
+    </div>
     <table>
-      <caption>Użytkownicy</caption>
+      <caption>Logged as Administrator:  {{ nick }} </caption>
+      <caption>USERS LIST</caption>
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Genre</th>
+          <th>Id</th>
+          <th>Nick</th>
           <th>Tier</th>
         <tr>
       </thead>
@@ -20,7 +27,7 @@
         <tr>
           <td>{{ user.id }}</td>
           <td>{{ user.nick }}</td>
-          <td class="{% if movie.tier == 'Gold' %}Gold{% elif movie.tier == 'Silver' %}Silver{% else %}Bronze{% endif %}" >{{ movie.tier }}</td>
+          <td class="{% if user.tier == 'Admin' %}Admin{% elif user.tier == 'Gold' %}Gold{% elif user.tier == 'Silver' %}Silver{% else %}Bronze{% endif %}" >{{ user.tier }}</td>
         </tr>
       {% endfor %}
       </tbody>

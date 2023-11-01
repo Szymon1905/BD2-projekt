@@ -160,11 +160,11 @@ class User(UserMixin):
         self.id = user_id
 
 
-
 @log_manager.user_loader
 def load_user(user_id):
     user = User(user_id)
     return user
+
 
 # todo zmienić na /login/<int:user_id>
 @app.route("/login", methods=["POST", "GET"])  # logowanie na konto
@@ -180,20 +180,37 @@ def login():
                                     INNER JOIN account_types at ON at.account_type_id = ac.account_type_id
                  WHERE nick LIKE '{nick}' and password LIKE '{password}' """)
                 user = cursor.fetchone()
+
                 if user:
-                    flash('Logged in successfully', 'info')
-                    account_id = user[0]
                     account_type_id = user[3]
-                    account_type = user[4]
-                    login_user(load_user(account_id))
 
-                    movies = get_data_about_movies(conn=conn, tier=int(account_type_id))
+                    if account_type_id == 1:
 
+                        account_id = user[0]
+                        account_type = user[4]
 
-                    return redirect(url_for('profile', nick=nick, movies=movies,
-                                            account_type_id=int(account_type_id), account_type=account_type))
+                        flash('Logged in successfully', 'info')
+                        login_user(load_user(account_id))
+                        users_data = get_data_about_users()
+
+                        return redirect(url_for('admin_panel', nick=nick,
+                                                account_type_id=int(account_type_id), account_type=account_type,
+                                                users=users_data))
+
+                    else:
+                        account_id = user[0]
+                        account_type_id = user[3]
+                        account_type = user[4]
+
+                        flash('Logged in successfully', 'info')
+
+                        login_user(load_user(account_id))
+
+                        movies_data = get_data_about_movies(conn=conn, tier=int(account_type_id))
+
+                        return redirect(url_for('profile', nick=nick, movies=movies_data,
+                                                account_type_id=int(account_type_id), account_type=account_type))
                 else:
-
                     flash('Invalid username or password', 'error')
 
     return render_template("Login.html")
@@ -206,7 +223,6 @@ def profile():
     account_type_id = request.args.get('account_type_id')
     account_type = request.args.get('account_type')
 
-    print('account_type_id: ', account_type_id)
     conn = connect_to_db()
     returned_movies = get_data_about_movies(conn=conn, tier=int(account_type_id))
 
@@ -227,7 +243,6 @@ def delete_acocunt(account_id):
             cursor.execute(f""" DELETE from accounts where accounts.account_id = {account_id} """)
 
 
-
 @app.route("/delete_account")
 @login_required
 def delete_account():
@@ -235,6 +250,41 @@ def delete_account():
     delete_acocunt(user_id)
     logout_user()
     return redirect(url_for('index'))
+
+
+@app.route("/admin_panel",methods=["POST", "GET"])
+@login_required
+def admin_panel():
+    nick = request.args.get('nick')
+    users_data = get_data_about_users()
+    return render_template("admin_panel.html", nick=nick, users=users_data)
+
+
+class Users_data:
+    def __init__(self, id, nick, tier):
+        self.tier = tier
+        self.nick = nick
+        self.id = id
+
+# todo czy zamyka połączenie samemu ?
+def get_data_about_users():
+    conn = connect_to_db()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(f""" SELECT ACC.account_id, ACC.nick, acc_t.account_type
+                                FROM accounts ACC
+                                INNER JOIN account_types acc_t
+                                ON ACC.account_type_id = acc_t.account_type_id
+                                order by acc_t.account_type, ACC.nick ; """)
+            rows = cursor.fetchall()
+
+    returned_users = []
+    for data in rows:
+        data = Users_data(id=int(data[0]), nick=str(data[1]), tier=str(data[2]))
+        returned_users.append(data)
+
+    print('Data fetched successfully, total rows: ', len(returned_users))
+    return returned_users
 
 
 if __name__ == '__main__':

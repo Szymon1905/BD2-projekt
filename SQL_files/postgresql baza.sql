@@ -16,8 +16,7 @@ order by account_id;
 
 DELETE from accounts where accounts.nick like 'test';
 
-INSERT INTO accounts (account_id, nick, password, account_type_id) VALUES
-                    ({account_id},'test','a',{account_type})
+
 
 INSERT INTO movies (movie_id, movie_title, account_type_id, description, genre_id) VALUES
 (nextval('movie_id_seq'), 'PSI patrol', 2, ' A powerful film about death row, hope, and redemption.', 3);
@@ -97,6 +96,8 @@ INSERT INTO accounts (account_id, nick, password, account_type_id) VALUES
 (1,'Kasia_Matuszek','I_love_Touhou',1),
 (2,'Szymon_Borzdynski','I_love_Factorio',1);
 
+INSERT INTO accounts (account_id, nick, password, account_type_id) VALUES
+(nextval('account_id_seq'),'admin','admin',1);
 
 --gatunki filmow
 CREATE TABLE IF NOT EXISTS genres (

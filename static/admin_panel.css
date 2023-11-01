@@ -58,3 +58,9 @@ tbody tr:nth-child(even) {
   background-color: #523314;
   font-weight: bold;
 }
+
+.Admin {
+  background-color: #8B0000;
+  font-weight: bold;
+   color: #ffffff;
+}
