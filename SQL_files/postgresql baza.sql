@@ -16,7 +16,12 @@ order by account_id;
 
 DELETE from accounts where accounts.nick like 'test';
 
-
+UPDATE MOVIES
+SET movie_title = value1,
+    description = value2,
+    account_type_id = value,
+    genre = value,
+WHERE movie_title LIKE var;
 
 INSERT INTO movies (movie_id, movie_title, account_type_id, description, genre_id) VALUES
 (nextval('movie_id_seq'), 'PSI patrol', 2, ' A powerful film about death row, hope, and redemption.', 3);
@@ -37,7 +42,12 @@ SELECT Mo.movie_title, Ge.genre_name, acc_t.account_type
                 WHERE Mo.account_type_id = 2
                 ORDER BY Mo.account_type_id;								   
 									   
-									   
+
+
+query:   UPDATE MOVIES
+                    SET
+                      movie_title = 'SAW 3', description = '', account_type_id = 3, genre_id = 0 WHERE movie_title LIKE 'SAW';
+
 -- work
 
 
@@ -130,7 +140,7 @@ CREATE TABLE IF NOT EXISTS movies (
   account_type_id INT NOT NULL
 );
 
-A
+
 
 
 SELECT Mo.movie_title, Ge.genre_name, acc_t.account_type
@@ -200,3 +210,7 @@ INSERT INTO filmy (id_filmu, tytul_filmu, id_typu_konta,opis) VALUES
 
 
 */
+
+UPDATE MOVIES
+                    SET
+                      movie_title = 'SAW 3', description = '', required_account_type = 3, genre_id = 0 WHERE movie_title LIKE 'SAW'

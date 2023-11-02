@@ -345,7 +345,49 @@ def delete_movie():
 @app.route('/admin_panel/modify_movie', methods=["POST", "GET"])
 @login_required
 def modify_movie():
-    return render_template("modify_movie_panel.html")
+    movies_data = get_data_about_movies()
+    if request.method == 'POST':
+        title_selected = request.form.get('title_selector')
+        title = request.form.get('title')
+        description = request.form.get('description')
+        required_account_type = int(request.form.get('required_account_type'))
+        genre_id = int(request.form.get('genre_id'))
+
+
+
+        query = f""" UPDATE MOVIES
+                    SET
+                     """
+
+        if title is not None:
+            query = query + f""" movie_title = '{title}'"""
+
+        if description == "":
+            query = query + f""", description = '{description}'"""
+
+        if required_account_type != 0:
+            query = query + f""", account_type_id = {required_account_type}"""
+
+        if genre_id != 0:
+            query = query + f""", genre_id = {genre_id}"""
+
+        query = query + f""" WHERE movie_title LIKE '{title_selected}'"""
+
+
+
+        try:
+            conn = connect_to_db()
+            with conn:
+                with conn.cursor() as cursor:
+                    cursor.execute(query)
+        except Exception:
+            flash('Failed to modify movie', 'error')
+            return redirect(url_for("modify_movie", movies=movies_data))
+
+        flash('Succesfully modified movie', 'info')
+        return redirect(url_for("modify_movie", movies=movies_data))
+    else:
+        return render_template("modify_movie.html", movies=movies_data)
 
 
 if __name__ == '__main__':
