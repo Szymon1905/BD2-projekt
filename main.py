@@ -311,10 +311,10 @@ def add_movie():
                                         VALUES (nextval('account_id_seq'), '{title}', {required_account_type}, '{description}',{genre_id})""")
         except Exception:
             flash('Failed to add movie', 'error')
-            return render_template("add_movie.html", movies=movies_data)
+            return redirect(url_for("add_movie", movies=movies_data))
 
         flash('Succesfully added new movie', 'info')
-        return render_template("add_movie.html", movies=movies_data)
+        return redirect(url_for("add_movie", movies=movies_data))
     else:
         return render_template("add_movie.html", movies=movies_data)
 
