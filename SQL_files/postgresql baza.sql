@@ -21,7 +21,7 @@ DELETE from accounts where accounts.nick like 'test';
 INSERT INTO movies (movie_id, movie_title, account_type_id, description, genre_id) VALUES
 (nextval('movie_id_seq'), 'PSI patrol', 2, ' A powerful film about death row, hope, and redemption.', 3);
 
-
+DELETE FROM MOVIES where movie_title LIKE 'SAW';
 
 
 SELECT Mo.movie_title, Ge.genre_name, At.account_type FROM movies Mo

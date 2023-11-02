@@ -322,7 +322,24 @@ def add_movie():
 @app.route('/admin_panel/delete_movie', methods=["POST", "GET"])
 @login_required
 def delete_movie():
-    return render_template("delete_movie_panel.html")
+    movies_data = get_data_about_movies()
+    if request.method == 'POST':
+        title = request.form.get('title')
+
+        try:
+            conn = connect_to_db()
+            with conn:
+                with conn.cursor() as cursor:
+                    cursor.execute(f""" DELETE FROM MOVIES where movie_title LIKE '{title}' """)
+                    cursor.execute(f""" DELETE FROM MOVIES where movie_title LIKE '{title}' """)
+        except Exception:
+            flash('Failed to delete movie', 'error')
+            return redirect(url_for("delete_movie", movies=movies_data))
+
+        flash('Succesfully deleted movie', 'info')
+        return redirect(url_for("delete_movie", movies=movies_data))
+    else:
+        return render_template("delete_movie.html", movies=movies_data)
 
 #TODO modyfikacja filmu
 @app.route('/admin_panel/modify_movie', methods=["POST", "GET"])
