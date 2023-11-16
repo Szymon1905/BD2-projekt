@@ -1,0 +1,5 @@
+DATABASE_USER = 'fdggxsxy'
+DATABASE_PASSWORD = 'fblPAJWqVJO-YUs7MyV6Itaje-NMrEA5'
+DATABASE_NAME = 'fdggxsxy'
+DATABASE_HOST = 'flora.db.elephantsql.com'
+DATABASE_PORT = 5432

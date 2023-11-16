@@ -1,0 +1,31 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>lepszy Netflix</title>
+<link rel="stylesheet" href="/static/index.css" />
+</head>
+<body>
+<img src="/static/logo.jpg" alt="logo image" width="20%" height="auto" />
+<h2>Strona startowa aplikacji</h2>
+
+<a href="{{ url_for('other_routes.index') }}">Index</a>
+<a href="{{ url_for('users.login') }}">Login</a>
+<a href="{{ url_for('users.register') }}">Register</a>
+<a href="{{ url_for('other_routes.movies') }}">Movies</a>
+<a href="{{ url_for('other_routes.authors') }}">Authors</a>
+<a href="{{ url_for('other_routes.prices') }}">Prices</a>
+<a href="{{ url_for('other_routes.coming_soon') }}">Coming soon</a>
+
+{% block body %}
+
+
+<p> Witamy na Capybarze.</p>
+<p> Będziesz się dobrze bawić, nie masz wyboru</p>
+
+
+
+{% endblock %}
+</body>
+</html>
