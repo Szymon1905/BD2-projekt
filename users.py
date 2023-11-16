@@ -87,10 +87,9 @@ def login():
                         account_id = user[0]
                         account_type = user[4]
 
-                        flash('Logged in successfully', 'info')
+
                         login_user(load_user(account_id))
                         users_data = get_data_about_users()
-
                         return redirect(url_for('admins.admin_panel', nick=nick,
                                                 account_type_id=int(account_type_id), account_type=account_type,
                                                 users=users_data))
