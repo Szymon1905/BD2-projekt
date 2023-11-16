@@ -10,25 +10,25 @@ other_bp = Blueprint('other_routes', __name__)
 @other_bp.route('/')  # domyślna strona startowa strona
 def index():
     print('Started')
-    return render_template("other_routes.index.html")
+    return render_template("other_routes/index.html")
 
 
 @other_bp.route("/authors")
 def authors():
-    return render_template("other_routes.authors.html")
+    return render_template("other_routes/authors.html")
 
 
 @other_bp.route("/movies")
 def movies():
     movies_list = get_data_about_movies()
-    return render_template("other_routes.Movies.html", movies=movies_list)
+    return render_template("other_routes/Movies.html", movies=movies_list)
 
 
 @other_bp.route("/prices")
 def prices():
-    return render_template("other_routes.Prices.html")
+    return render_template("other_routes/Prices.html")
 
 
 @other_bp.route("/coming_soon")
 def coming_soon():
-    return render_template("other_routes.Coming_soon.html")
+    return render_template("other_routes/Coming_soon.html")

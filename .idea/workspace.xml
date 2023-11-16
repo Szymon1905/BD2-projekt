@@ -5,27 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2526c7e-212d-4567-aa7b-55301b4d0406" name="Changes" comment="Poprawiono add movie aby odświeżał po dodaniu filmu">
-      <change afterPath="$PROJECT_DIR$/admins.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/db.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extensions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/other_routes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL_files/postgresql baza.sql" beforeDir="false" afterPath="$PROJECT_DIR$/db/SQL_files/postgresql baza.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Coming_soon.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/other_routes.Coming_soon.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Movies.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/other_routes.Movies.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Prices.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/other_routes.Prices.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users.Register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/add_movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admins.add_movie.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin_panel.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_panel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/authors.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/other_routes.authors.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/delete_movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admins.delete_movie.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/other_routes.index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users.login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/modify_movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admins.modify_movie.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users.profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admins.py" beforeDir="false" afterPath="$PROJECT_DIR$/admins.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/other_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/other_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin_panel.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/admin_panel.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admins.add_movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/add_movie.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admins.delete_movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/delete_movie.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admins.modify_movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/modify_movie.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/other_routes.Coming_soon.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/other_routes.Movies.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/other_routes.Prices.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/other_routes.authors.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/other_routes.index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/sign_up.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/users.Register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/users.login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/users.profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/users.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,9 +119,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Szymon\PycharmProjects\BD2-projekt\templates\users" />
+      <recent name="C:\Users\Szymon\PycharmProjects\BD2-projekt\templates\admin" />
+      <recent name="C:\Users\Szymon\PycharmProjects\BD2-projekt\templates" />
       <recent name="C:\Users\Szymon\PycharmProjects\BD2-projekt\db" />
       <recent name="C:\Users\Szymon\PycharmProjects\BD2-projekt\SQL_files" />
-      <recent name="C:\Users\Szymon\PycharmProjects\BD2-projekt" />
     </key>
   </component>
   <component name="RunManager" selected="Flask server.BD2-projekt">
@@ -283,6 +282,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Poprawiono add movie aby odświeżał po dodaniu filmu" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/BD2_projekt$BD2_projekt.coverage" NAME="BD2-projekt Coverage Results" MODIFIED="1700174287580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/BD2_projekt$BD2_projekt.coverage" NAME="BD2-projekt Coverage Results" MODIFIED="1700177387913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -3,30 +3,26 @@
     <head>
         <meta charset="UTF-8">
         <title> Add movie </title>
-        <link rel="stylesheet" href="/static/add_movie.css" />
+        <link rel="stylesheet" href="../../static/add_movie.css" />
     </head>
     <body>
         <div align="center">
           <div align="center" class="border">
              <div class="header">
-                <h1 class="word">Modify movie panel</h1>
+                <h1 class="word">Add movie panel</h1>
              </div>
             <h2 class="word">
-                <form action="{{ url_for('admins.modify_movie') }}" method="post">
+                <form action="{{ url_for('admins.add_movie') }}" method="post">
                   <div class="msg">{{ msg }}</div>
 
-                    <label for="title_selector">Title to modify:</label>
-                    <input id="title_selector" name="title_selector" type="text" placeholder="title to modify" class="textbox"/>
-
-                    <label for="title">New title:</label>
-                    <input id="title" name="title" type="text" placeholder="enter new movie title" class="textbox"/>
+                    <label for="title">Title:</label>
+                    <input id="title" name="title" type="text" placeholder="enter movie title" class="textbox"/>
 
                     <label for="description">Description:</label>
                     <input id="description" name="description" type="text" placeholder="optional" class="textbox"/>
 
                       <label for="required_account_type">Required account tier:</label>
                       <select name="required_account_type" id="required_account_type">
-                        <option value=0>No change</option>
                         <option value=2>Bronze</option>
                         <option value=3>Silver</option>
                         <option value=4>Gold</option>
@@ -34,7 +30,6 @@
 
                     <label for="genre_id">Genre:</label>
                       <select name="genre_id" id="genre_id">
-                        <option value=0>No change</option>
                         <option value=1>horror</option>
                         <option value=2>akcji</option>
                         <option value=3>dokumentalny</option>
@@ -43,7 +38,7 @@
                         <option value=6>klasyczny</option>
                         <option value=7>romantyczny</option>
                       </select>
-                    <input type="submit" class="btn" value="MODIFY">
+                    <input type="submit" class="btn" value="ADD">
                 </form>
             </h2>
           </div>

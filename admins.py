@@ -7,7 +7,6 @@ from db import connect_to_db, get_data_about_movies, get_data_about_users
 admins_bp = Blueprint('admins', __name__)
 
 
-
 @admins_bp.route("/admin_panel", methods=["POST", "GET"])
 @login_required
 def admin_panel():
@@ -15,7 +14,8 @@ def admin_panel():
     users_data = get_data_about_users()
     movie_data = get_data_about_movies()
 
-    return render_template("admin_panel.html", nick=nick, users=users_data, movies=movie_data)
+    return render_template("admin/admin_panel.html", nick=nick, users=users_data, movies=movie_data)
+
 
 @admins_bp.route('/add_movie', methods=["POST", "GET"])
 @login_required
@@ -40,9 +40,10 @@ def add_movie():
         flash('Succesfully added new movie', 'info')
         return redirect(url_for("admins.add_movie", movies=movies_data))
     else:
-        return render_template("admins.add_movie.html", movies=movies_data)
+        return render_template("admin/add_movie.html", movies=movies_data)
 
-#TODO usuwanie filmu
+
+# TODO usuwanie filmu
 @admins_bp.route('/admin_panel/delete_movie', methods=["POST", "GET"])
 @login_required
 def delete_movie():
@@ -63,9 +64,10 @@ def delete_movie():
         flash('Succesfully deleted movie', 'info')
         return redirect(url_for("admins.delete_movie", movies=movies_data))
     else:
-        return render_template("admins.delete_movie.html", movies=movies_data)
+        return render_template("admin/delete_movie.html", movies=movies_data)
 
-#TODO modyfikacja filmu
+
+# TODO modyfikacja filmu
 @admins_bp.route('/admin_panel/modify_movie', methods=["POST", "GET"])
 @login_required
 def modify_movie():
@@ -76,8 +78,6 @@ def modify_movie():
         description = request.form.get('description')
         required_account_type = int(request.form.get('required_account_type'))
         genre_id = int(request.form.get('genre_id'))
-
-
 
         query = f""" UPDATE MOVIES SET"""
 
@@ -95,8 +95,6 @@ def modify_movie():
 
         query = query + f""" WHERE movie_title LIKE '{title_selected}'"""
 
-
-
         try:
             conn = connect_to_db()
             with conn:
@@ -109,6 +107,4 @@ def modify_movie():
         flash('Succesfully modified movie', 'info')
         return redirect(url_for("admins.modify_movie", movies=movies_data))
     else:
-        return render_template("admins.modify_movie.html", movies=movies_data)
-
-
+        return render_template("admin/modify_movie.html", movies=movies_data)

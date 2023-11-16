@@ -44,11 +44,11 @@ def register():
 
         print(f"Created account: Username: {nick} \n Password: {password} \n Account type: {account_type}")
 
-        return render_template("users.Register.html")
+        return render_template("users/register.html")
 
     else:
         # jeżeli nie wysyłamy danych to po poprostu ładujemy stronę
-        return render_template("users.Register.html")
+        return render_template("users/register.html")
 
 from flask_login import UserMixin
 
@@ -110,7 +110,7 @@ def login():
                 else:
                     flash('Invalid username or password', 'error')
 
-    return render_template("users.login.html")
+    return render_template("users/login.html")
 
 @users_bp.route("/profile")
 @login_required
@@ -121,7 +121,7 @@ def profile():
 
     returned_movies = get_data_about_movies(tier=int(account_type_id))
 
-    return render_template("users.profile.html", nick=nick, movies=returned_movies, account_type=account_type)
+    return render_template("users/profile.html", nick=nick, movies=returned_movies, account_type=account_type)
 
 
 @users_bp.route("/logout", methods=["POST", "GET"])
