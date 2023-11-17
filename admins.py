@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for, ses
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user, login_manager
 import psycopg2
 from flask import Blueprint, render_template
-from db import connect_to_db, get_data_about_movies, get_data_about_users
+from db import connect_to_db_online, get_data_about_movies, get_data_about_users
 from users import admin_permission
 
 admins_bp = Blueprint('admins', __name__)
@@ -31,7 +31,7 @@ def add_movie():
         genre_id = request.form.get('genre_id')
 
         try:
-            conn = connect_to_db()
+            conn = connect_to_db_online()
             with conn:
                 with conn.cursor() as cursor:
                     cursor.execute(f""" INSERT INTO movies (movie_id, movie_title, account_type_id, description, genre_id)
@@ -46,7 +46,7 @@ def add_movie():
         return render_template("admin/add_movie.html", movies=movies_data)
 
 
-# TODO usuwanie filmu
+
 @admins_bp.route('/admin_panel/delete_movie', methods=["POST", "GET"])
 @admin_permission.require(http_exception=403)
 @login_required
@@ -56,7 +56,7 @@ def delete_movie():
         title = request.form.get('title')
 
         try:
-            conn = connect_to_db()
+            conn = connect_to_db_online()
             with conn:
                 with conn.cursor() as cursor:
                     cursor.execute(f""" DELETE FROM MOVIES where movie_title LIKE '{title}' """)
@@ -71,7 +71,7 @@ def delete_movie():
         return render_template("admin/delete_movie.html", movies=movies_data)
 
 
-# TODO modyfikacja filmu
+
 @admins_bp.route('/admin_panel/modify_movie', methods=["POST", "GET"])
 @admin_permission.require(http_exception=403)
 @login_required
@@ -101,7 +101,7 @@ def modify_movie():
         query = query + f""" WHERE movie_title LIKE '{title_selected}'"""
 
         try:
-            conn = connect_to_db()
+            conn = connect_to_db_online()
             with conn:
                 with conn.cursor() as cursor:
                     cursor.execute(query)

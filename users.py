@@ -5,7 +5,7 @@ from flask import Blueprint, render_template
 from flask_principal import RoleNeed, Permission, identity_loaded, Identity, identity_changed
 
 import encryption
-from db import connect_to_db, get_data_about_movies, get_data_about_users
+from db import connect_to_db_online, get_data_about_movies, get_data_about_users
 from extensions import log_manager
 from main import app
 
@@ -24,7 +24,7 @@ def register():
     if request.method == 'POST':  # jeżeli wysyłamy dane to rejestrujemy
 
         # Łączę sie z bazaą danych
-        conn = connect_to_db()
+        conn = connect_to_db_online()
 
         # pobiera dane z HTML form
         nick = request.form.get('username')  # czyta z html po atrybucie NAME
@@ -81,7 +81,7 @@ class User(UserMixin):
 
 @log_manager.user_loader
 def load_user(user_id):
-    conn = connect_to_db()
+    conn = connect_to_db_online()
     get_level = f"""SELECT account_type_id from accounts
                              WHERE account_id = '{user_id}' """
     with conn:
@@ -111,7 +111,7 @@ def login():
         nick = request.form.get('nick')
         entered_password = request.form.get('password')
 
-        conn = connect_to_db()
+        conn = connect_to_db_online()
 
         get_hash = f"""SELECT password from accounts
                          WHERE nick LIKE '{nick}' """
@@ -190,7 +190,7 @@ def logout():
 
 
 def delete_acocunt(account_id):
-    conn = connect_to_db()
+    conn = connect_to_db_online()
     with conn:
         with conn.cursor() as cursor:
             cursor.execute(f""" DELETE from accounts where accounts.account_id = {account_id} """)

@@ -2,10 +2,10 @@ from flask import Flask, render_template, request, flash, redirect, url_for, ses
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user, login_manager
 import psycopg2
 from flask import Blueprint, render_template
-from config import DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME, DATABASE_HOST, DATABASE_PORT
+from config import *
 
 
-def connect_to_db():
+def connect_to_db_online():  # tylko do testów
     try:
         conn = psycopg2.connect(
             user=DATABASE_USER,
@@ -14,10 +14,41 @@ def connect_to_db():
             host=DATABASE_HOST,
             port=DATABASE_PORT
         )
-        print("Database connected successfully")
+        print("Database connected successfully as admin")
         return conn
     except Exception:
-        print("Database not connected successfully")
+        print("Database not connected successfully as admin")
+
+
+def connect_to_db_as_admin():
+    try:
+        conn = psycopg2.connect(
+            user=DATABASE_USER_ADMIN,
+            password=DATABASE_PASSWORD_ADMIN,
+            dbname=DATABASE_NAME,
+            host=DATABASE_HOST,
+            port=DATABASE_PORT
+        )
+        print("Database connected successfully as admin")
+        return conn
+    except Exception:
+        print("Database not connected successfully as admin")
+
+
+# todo exception
+def connect_to_db_as_user():
+    try:
+        conn = psycopg2.connect(
+            user=DATABASE_USER_USER,
+            password=DATABASE_PASSWORD_USER,
+            dbname=DATABASE_NAME,
+            host=DATABASE_HOST,
+            port=DATABASE_PORT
+        )
+        print("Database connected successfully as user")
+        return conn
+    except Exception:
+        print("Database not connected successfully as user")
 
 
 class movie:
@@ -27,9 +58,8 @@ class movie:
         self.genre = genre
 
 
-# TODO do modyfikacji
 def get_data_about_movies(tier=None):
-    conn = connect_to_db()
+    conn = connect_to_db_online()
     cur = conn.cursor()
 
     if tier is None or tier == 4:
@@ -71,7 +101,6 @@ def get_data_about_movies(tier=None):
     return returned_movies
 
 
-
 class Users_data:
     def __init__(self, id, nick, tier):
         self.tier = tier
@@ -80,7 +109,7 @@ class Users_data:
 
 
 def get_data_about_users():
-    conn = connect_to_db()
+    conn = connect_to_db_online()
     with conn:
         with conn.cursor() as cursor:
             cursor.execute(f""" SELECT ACC.account_id, ACC.nick, acc_t.account_type, ACC.account_type_id
