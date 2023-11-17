@@ -2,14 +2,21 @@ from flask import Flask, render_template, request, flash, redirect, url_for, ses
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user, login_manager
 import psycopg2
 from flask import Blueprint, render_template
+from flask_principal import RoleNeed, Permission
 
 import encryption
 from db import connect_to_db, get_data_about_movies, get_data_about_users
 from extensions import log_manager
 
-test = ""
-
 users_bp = Blueprint('users', __name__)
+
+admin_role = RoleNeed('admin')
+user_role = RoleNeed('user')
+
+# Define permissions
+admin_permission = Permission(admin_role)
+user_permission = Permission(user_role)
+
 
 @users_bp.route("/register", methods=["POST", "GET"])  # rejestracja konta
 def register():
@@ -23,7 +30,6 @@ def register():
         password = request.form.get('password')
         account_type = request.form.get('account_type')
         account_type = int(account_type)
-
 
         password = encryption.hash_password(password)
 
@@ -42,7 +48,6 @@ def register():
         try:
             with conn:
                 with conn.cursor() as cursor:
-
                     cursor.execute(query)
                     flash('Account registered succesfully', 'info')
         except:
@@ -59,17 +64,26 @@ def register():
         # jeżeli nie wysyłamy danych to po poprostu ładujemy stronę
         return render_template("users/register.html")
 
+
 from flask_login import UserMixin
 
 
 class User(UserMixin):
-    def __init__(self, user_id):
+    def __init__(self, user_id, access_level):
         self.id = user_id
+        self.access_level = access_level
 
 
 @log_manager.user_loader
 def load_user(user_id):
-    user = User(user_id)
+    conn = connect_to_db()
+    get_level = f"""SELECT account_type_id from accounts
+                             WHERE account_id = '{user_id}' """
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(get_level)
+            access_level = cursor.fetchone()
+    user = User(user_id, access_level)
     return user
 
 
@@ -98,8 +112,6 @@ def login():
                 else:
                     flash('Invalid username or password', 'error')
                     return render_template("users/login.html")
-
-
 
         query = f"""SELECT ac.account_id, ac.account_type_id, at.account_type FROM accounts ac
                                     INNER JOIN account_types at ON at.account_type_id = ac.account_type_id
@@ -131,6 +143,7 @@ def login():
                     flash('Invalid username or password', 'error')
 
     return render_template("users/login.html")
+
 
 @users_bp.route("/profile")
 @login_required
