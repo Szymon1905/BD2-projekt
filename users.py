@@ -1,13 +1,12 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, session
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user, login_manager
-import psycopg2
+from flask import request, flash, redirect, url_for
+from flask_login import login_user, login_required, logout_user, current_user
 from flask import Blueprint, render_template
-from flask_principal import RoleNeed, Permission, identity_loaded, Identity, identity_changed
-
+from flask_principal import RoleNeed, Permission, Identity, identity_changed
 import encryption
 from db import connect_to_db_online, get_data_about_movies, get_data_about_users
 from extensions import log_manager
 from main import app
+from flask_login import UserMixin
 
 users_bp = Blueprint('users', __name__)
 
@@ -66,17 +65,10 @@ def register():
         return render_template("users/register.html")
 
 
-from flask_login import UserMixin
-
-
 class User(UserMixin):
     def __init__(self, user_id, access_level):
         self.id = user_id
         self.access_level = access_level
-        self.roles = ['user']  # List to store user roles
-
-    def set_admin_role(self):
-        self.roles.append('admin')
 
 
 @log_manager.user_loader
@@ -89,19 +81,7 @@ def load_user(user_id):
             cursor.execute(get_level)
             access_level = cursor.fetchone()[0]
     user = User(user_id, access_level)
-    if access_level == 1:
-        user.set_admin_role()
-        print("AAAAAAAAAAAA")
     return user
-
-
-@identity_loaded.connect_via(app)
-def on_identity_loaded(sender, identity):
-    print("chuj")
-    if hasattr(current_user, 'roles'):
-        for role in current_user.roles:
-            identity.provides.add(RoleNeed(role))
-
 
 
 # todo zmienić na /login/<int:user_id> aby pozbyćsię parametórw w URL
@@ -150,7 +130,6 @@ def login():
                         identity = Identity(account_id)
                         identity.provides.add(RoleNeed('admin'))
                         identity_changed.send(app, identity=identity)
-
 
                         login_user(load_user(account_id))
                         users_data = get_data_about_users()

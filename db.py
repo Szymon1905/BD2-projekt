@@ -1,7 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, session
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user, login_manager
 import psycopg2
-from flask import Blueprint, render_template
 from config import *
 
 

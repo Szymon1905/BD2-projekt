@@ -1,6 +1,5 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, session
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user, login_manager
-import psycopg2
+from flask import  request, flash, redirect, url_for
+from flask_login import login_required
 from flask import Blueprint, render_template
 from db import connect_to_db_online, get_data_about_movies, get_data_about_users
 from users import admin_permission
@@ -46,7 +45,6 @@ def add_movie():
         return render_template("admin/add_movie.html", movies=movies_data)
 
 
-
 @admins_bp.route('/admin_panel/delete_movie', methods=["POST", "GET"])
 @admin_permission.require(http_exception=403)
 @login_required
@@ -69,7 +67,6 @@ def delete_movie():
         return redirect(url_for("admins.delete_movie", movies=movies_data))
     else:
         return render_template("admin/delete_movie.html", movies=movies_data)
-
 
 
 @admins_bp.route('/admin_panel/modify_movie', methods=["POST", "GET"])
@@ -113,3 +110,5 @@ def modify_movie():
         return redirect(url_for("admins.modify_movie", movies=movies_data))
     else:
         return render_template("admin/modify_movie.html", movies=movies_data)
+
+# todo 403 handler dodać
