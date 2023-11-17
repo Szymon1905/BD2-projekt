@@ -3,11 +3,13 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 import psycopg2
 from flask import Blueprint, render_template
 from db import connect_to_db, get_data_about_movies, get_data_about_users
+from users import admin_permission
 
 admins_bp = Blueprint('admins', __name__)
 
 
 @admins_bp.route("/admin_panel", methods=["POST", "GET"])
+@admin_permission.require(http_exception=403)
 @login_required
 def admin_panel():
     nick = request.args.get('nick')
@@ -18,6 +20,7 @@ def admin_panel():
 
 
 @admins_bp.route('/add_movie', methods=["POST", "GET"])
+@admin_permission.require(http_exception=403)
 @login_required
 def add_movie():
     movies_data = get_data_about_movies()
@@ -45,6 +48,7 @@ def add_movie():
 
 # TODO usuwanie filmu
 @admins_bp.route('/admin_panel/delete_movie', methods=["POST", "GET"])
+@admin_permission.require(http_exception=403)
 @login_required
 def delete_movie():
     movies_data = get_data_about_movies()
@@ -69,6 +73,7 @@ def delete_movie():
 
 # TODO modyfikacja filmu
 @admins_bp.route('/admin_panel/modify_movie', methods=["POST", "GET"])
+@admin_permission.require(http_exception=403)
 @login_required
 def modify_movie():
     movies_data = get_data_about_movies()

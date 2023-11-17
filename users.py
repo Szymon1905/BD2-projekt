@@ -2,11 +2,12 @@ from flask import Flask, render_template, request, flash, redirect, url_for, ses
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user, login_manager
 import psycopg2
 from flask import Blueprint, render_template
-from flask_principal import RoleNeed, Permission
+from flask_principal import RoleNeed, Permission, identity_loaded, Identity, identity_changed
 
 import encryption
 from db import connect_to_db, get_data_about_movies, get_data_about_users
 from extensions import log_manager
+from main import app
 
 users_bp = Blueprint('users', __name__)
 
@@ -72,6 +73,10 @@ class User(UserMixin):
     def __init__(self, user_id, access_level):
         self.id = user_id
         self.access_level = access_level
+        self.roles = ['user']  # List to store user roles
+
+    def set_admin_role(self):
+        self.roles.append('admin')
 
 
 @log_manager.user_loader
@@ -82,9 +87,21 @@ def load_user(user_id):
     with conn:
         with conn.cursor() as cursor:
             cursor.execute(get_level)
-            access_level = cursor.fetchone()
+            access_level = cursor.fetchone()[0]
     user = User(user_id, access_level)
+    if access_level == 1:
+        user.set_admin_role()
+        print("AAAAAAAAAAAA")
     return user
+
+
+@identity_loaded.connect_via(app)
+def on_identity_loaded(sender, identity):
+    print("chuj")
+    if hasattr(current_user, 'roles'):
+        for role in current_user.roles:
+            identity.provides.add(RoleNeed(role))
+
 
 
 # todo zmienić na /login/<int:user_id> aby pozbyćsię parametórw w URL
@@ -128,12 +145,20 @@ def login():
                     account_type = user[2]
 
                     if account_type_id == 1:
+                        # he got here correctly
+
+                        identity = Identity(account_id)
+                        identity.provides.add(RoleNeed('admin'))
+                        identity_changed.send(app, identity=identity)
+
+
                         login_user(load_user(account_id))
                         users_data = get_data_about_users()
                         return redirect(url_for('admins.admin_panel', nick=nick,
                                                 account_type_id=int(account_type_id), account_type=account_type,
                                                 users=users_data))
                     else:
+                        print("USER TU WLAZŁ ")
                         flash('Logged in successfully', 'info')
                         login_user(load_user(account_id))
                         movies_data = get_data_about_movies(tier=int(account_type_id))
