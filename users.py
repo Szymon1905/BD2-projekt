@@ -2,10 +2,12 @@ from flask import Flask, render_template, request, flash, redirect, url_for, ses
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user, login_manager
 import psycopg2
 from flask import Blueprint, render_template
+
+import encryption
 from db import connect_to_db, get_data_about_movies, get_data_about_users
 from extensions import log_manager
 
-
+test = ""
 
 users_bp = Blueprint('users', __name__)
 
@@ -22,6 +24,9 @@ def register():
         account_type = request.form.get('account_type')
         account_type = int(account_type)
 
+
+        password = encryption.hash_password(password)
+
         # pobieranie id do konta z sekwencji
         with conn:
             with conn.cursor() as cursor:
@@ -30,11 +35,15 @@ def register():
                 account_id = int(account_id[0])
 
         # automatycznie commituje do bazy jeśli nie ma błędu jeśli błąd to rollback
+        query = f"""INSERT INTO accounts (account_id, nick, password, account_type_id) VALUES
+                            ({account_id},'{nick}','{password}',{account_type})"""
+        print(query)
+
         try:
             with conn:
                 with conn.cursor() as cursor:
-                    cursor.execute(f"""INSERT INTO accounts (account_id, nick, password, account_type_id) VALUES
-                    ({account_id},'{nick}','{password}',{account_type})""")
+
+                    cursor.execute(query)
                     flash('Account registered succesfully', 'info')
         except:
             flash('Failed to register account', 'error')
@@ -69,42 +78,53 @@ def load_user(user_id):
 def login():
     if request.method == 'POST':
         nick = request.form.get('nick')
-        password = request.form.get('password')
+        entered_password = request.form.get('password')
 
         conn = connect_to_db()
+
+        get_hash = f"""SELECT password from accounts
+                         WHERE nick LIKE '{nick}' """
+
         with conn:
             with conn.cursor() as cursor:
-                cursor.execute(f"""SELECT ac.account_id, ac.nick, ac.password, ac.account_type_id, at.account_type FROM accounts ac
-                                    INNER JOIN account_types at ON at.account_type_id = ac.account_type_id
-                 WHERE nick LIKE '{nick}' and password LIKE '{password}' """)
+                cursor.execute(get_hash)
                 user = cursor.fetchone()
 
                 if user:
-                    account_type_id = user[3]
+                    hashed_password_from_db = user[0]
+                    if not encryption.bcrypt.check_password_hash(hashed_password_from_db, entered_password):
+                        flash('Invalid username or password', 'error')
+                        return render_template("users/login.html")
+                else:
+                    flash('Invalid username or password', 'error')
+                    return render_template("users/login.html")
+
+
+
+        query = f"""SELECT ac.account_id, ac.account_type_id, at.account_type FROM accounts ac
+                                    INNER JOIN account_types at ON at.account_type_id = ac.account_type_id
+                 WHERE ac.nick LIKE '{nick}' """
+
+        with conn:
+            with conn.cursor() as cursor:
+                cursor.execute(query)
+                user = cursor.fetchone()
+
+                if user:
+                    account_type_id = user[1]
+                    account_id = user[0]
+                    account_type = user[2]
 
                     if account_type_id == 1:
-
-                        account_id = user[0]
-                        account_type = user[4]
-
-
                         login_user(load_user(account_id))
                         users_data = get_data_about_users()
                         return redirect(url_for('admins.admin_panel', nick=nick,
                                                 account_type_id=int(account_type_id), account_type=account_type,
                                                 users=users_data))
-
                     else:
-                        account_id = user[0]
-                        account_type_id = user[3]
-                        account_type = user[4]
-
                         flash('Logged in successfully', 'info')
-
                         login_user(load_user(account_id))
-
                         movies_data = get_data_about_movies(tier=int(account_type_id))
-
                         return redirect(url_for('users.profile', nick=nick, movies=movies_data,
                                                 account_type_id=int(account_type_id), account_type=account_type))
                 else:

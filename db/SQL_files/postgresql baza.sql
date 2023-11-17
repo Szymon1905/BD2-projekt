@@ -106,7 +106,7 @@ CREATE SEQUENCE Account_ID_seq
     INCREMENT BY 1;
 
 INSERT INTO accounts (account_id, nick, password, account_type_id) VALUES
-(1,'Kasia_Matuszek','I_love_Touhou',1),
+(1,'Kasia Matuszek','I_love_Touhou',1),
 (2,'Szymon_Borzdynski','I_love_Factorio',1);
 
 INSERT INTO accounts (account_id, nick, password, account_type_id) VALUES
