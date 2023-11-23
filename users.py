@@ -7,7 +7,7 @@ from flask_principal import RoleNeed, Permission, identity_loaded, Identity, ide
 import encryption
 from db import connect_to_db, get_data_about_movies, get_data_about_users
 from extensions import log_manager
-from main import app
+
 
 users_bp = Blueprint('users', __name__)
 
@@ -95,12 +95,6 @@ def load_user(user_id):
     return user
 
 
-@identity_loaded.connect_via(app)
-def on_identity_loaded(sender, identity):
-    print("chuj")
-    if hasattr(current_user, 'roles'):
-        for role in current_user.roles:
-            identity.provides.add(RoleNeed(role))
 
 
 
@@ -146,11 +140,11 @@ def login():
 
                     if account_type_id == 1:
                         # he got here correctly
+                        from main import app
 
                         identity = Identity(account_id)
                         identity.provides.add(RoleNeed('admin'))
                         identity_changed.send(app, identity=identity)
-
 
                         login_user(load_user(account_id))
                         users_data = get_data_about_users()
