@@ -33,7 +33,6 @@ bcrypt.init_app(app)
 ###########################################################
 @identity_loaded.connect_via(app)
 def on_identity_loaded(sender, identity):
-    print("chuj")
     if hasattr(current_user, 'roles'):
         for role in current_user.roles:
             identity.provides.add(RoleNeed(role))
