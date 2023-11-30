@@ -8,7 +8,6 @@ import encryption
 from db import connect_to_db, get_data_about_movies, get_data_about_users
 from extensions import log_manager
 
-
 users_bp = Blueprint('users', __name__)
 
 admin_role = RoleNeed('admin')
@@ -84,6 +83,7 @@ def load_user(user_id):
     conn = connect_to_db()
     get_level = f"""SELECT account_type_id from accounts
                              WHERE account_id = '{user_id}' """
+    print("user_id: ",user_id)
     with conn:
         with conn.cursor() as cursor:
             cursor.execute(get_level)
@@ -91,14 +91,9 @@ def load_user(user_id):
     user = User(user_id, access_level)
     if access_level == 1:
         user.set_admin_role()
-        print("AAAAAAAAAAAA")
     return user
 
 
-
-
-
-# todo zmienić na /login/<int:user_id> aby pozbyćsię parametórw w URL
 @users_bp.route("/login", methods=["POST", "GET"])  # logowanie na konto
 def login():
     if request.method == 'POST':

@@ -19,6 +19,33 @@ def connect_to_db():
     except Exception:
         print("Database not connected successfully")
 
+def connect_to_db_as_user():
+    try:
+        conn = psycopg2.connect(
+            user=DATABASE_USER_A,
+            password=DATABASE_PASSWORD_A,
+            dbname=DATABASE_NAME,
+            host=DATABASE_HOST,
+            port=DATABASE_PORT
+        )
+        print("Database connected successfully")
+        return conn
+    except Exception:
+        print("Database not connected successfully")
+
+def connect_to_db_as_admin():
+    try:
+        conn = psycopg2.connect(
+            user=DATABASE_USER_U,
+            password=DATABASE_PASSWORD_U,
+            dbname=DATABASE_NAME,
+            host=DATABASE_HOST,
+            port=DATABASE_PORT
+        )
+        print("Database connected successfully")
+        return conn
+    except Exception:
+        print("Database not connected successfully")
 
 class movie:
     def __init__(self, title, tier, genre):
