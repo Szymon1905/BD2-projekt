@@ -5,8 +5,6 @@ from flask_principal import RoleNeed, Permission, Identity, identity_changed
 import encryption
 from db import connect_to_db_online, get_data_about_movies, get_data_about_users
 from extensions import log_manager
-from main import app
-from flask_login import UserMixin
 
 users_bp = Blueprint('users', __name__)
 
@@ -69,6 +67,10 @@ class User(UserMixin):
     def __init__(self, user_id, access_level):
         self.id = user_id
         self.access_level = access_level
+        self.roles = ['user']
+
+    def set_admin_role(self):
+        self.roles.append('admin')
 
 
 @log_manager.user_loader
@@ -76,15 +78,17 @@ def load_user(user_id):
     conn = connect_to_db_online()
     get_level = f"""SELECT account_type_id from accounts
                              WHERE account_id = '{user_id}' """
+    print("user_id: ",user_id)
     with conn:
         with conn.cursor() as cursor:
             cursor.execute(get_level)
             access_level = cursor.fetchone()[0]
     user = User(user_id, access_level)
+    if access_level == 1:
+        user.set_admin_role()
     return user
 
 
-# todo zmienić na /login/<int:user_id> aby pozbyćsię parametórw w URL
 @users_bp.route("/login", methods=["POST", "GET"])  # logowanie na konto
 def login():
     if request.method == 'POST':
@@ -126,6 +130,7 @@ def login():
 
                     if account_type_id == 1:
                         # he got here correctly
+                        from main import app
 
                         identity = Identity(account_id)
                         identity.provides.add(RoleNeed('admin'))

@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html>
+{% extends 'other_routes/index.html' %}
+{% block body %}
 <head>
     <title>Movies</title>
     <link rel="stylesheet" href="../../static/movies.css" />
 </head>
 <body>
+<div class="spacer"></div>
+    <form action="{{ url_for('other_routes.movies') }}" method="post">
+    <select name="sort" id="sort">
+                        <option value=1>Tier</option>
+                        <option value=2>Title</option>
+                        <option value=3>Genre</option>
+                      </select>
+    <input type="submit" class="btn" value="Sort">
+    </form>
     <table>
       <caption>AVAILABLE MOVIES:</caption>
       <thead>
@@ -25,5 +34,5 @@
       </tbody>
     </table>
 </body>
-</html>
 
+{% endblock %}
