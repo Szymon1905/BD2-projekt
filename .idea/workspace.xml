@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e2526c7e-212d-4567-aa7b-55301b4d0406" name="Changes" comment="dodano przyciski powrót">
+    <list default="true" id="e2526c7e-212d-4567-aa7b-55301b4d0406" name="Changes" comment="dodano przycisk sort do movies">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/other_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/other_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/movies.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/movies.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/other_routes/Movies.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/other_routes/Movies.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -352,7 +351,14 @@
       <option name="project" value="LOCAL" />
       <updated>1702046884352</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="dodano przycisk sort do movies">
+      <created>1702050225919</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1702050225919</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,6 +389,7 @@
     <MESSAGE value="dodoano dane kont" />
     <MESSAGE value="usunięto coming soon i prices" />
     <MESSAGE value="dodano przyciski powrót" />
-    <option name="LAST_COMMIT_MESSAGE" value="dodano przyciski powrót" />
+    <MESSAGE value="dodano przycisk sort do movies" />
+    <option name="LAST_COMMIT_MESSAGE" value="dodano przycisk sort do movies" />
   </component>
 </project>
