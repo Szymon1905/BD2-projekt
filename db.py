@@ -54,6 +54,46 @@ class movie:
         self.genre = genre
 
 
+def get_ALL_data_about_movies(sort):
+    conn = connect_to_db()
+    cur = conn.cursor()
+
+    match sort:
+        case 1:
+            cur.execute("""
+                SELECT Mo.movie_title, Ge.genre_name, acc_t.account_type
+                FROM movies Mo
+                INNER JOIN account_types acc_t ON Mo.account_type_id = acc_t.account_type_id 
+                INNER JOIN genres Ge ON Mo.genre_id = Ge.genre_id
+                ORDER BY Mo.account_type_id;
+                """)
+        case 2:
+            cur.execute("""
+                 SELECT Mo.movie_title, Ge.genre_name, acc_t.account_type
+                 FROM movies Mo
+                 INNER JOIN account_types acc_t ON Mo.account_type_id = acc_t.account_type_id 
+                 INNER JOIN genres Ge ON Mo.genre_id = Ge.genre_id
+                 ORDER BY Mo.movie_title;
+                 """)
+        case 3:
+            cur.execute("""
+                SELECT Mo.movie_title, Ge.genre_name, acc_t.account_type
+                FROM movies Mo
+                INNER JOIN account_types acc_t ON Mo.account_type_id = acc_t.account_type_id 
+                INNER JOIN genres Ge ON Mo.genre_id = Ge.genre_id
+                ORDER BY Ge.genre_name;
+                """)
+
+    rows = cur.fetchall()
+
+    returned_movies = []
+    for data in rows:
+        mov = movie(title=str(data[0]), genre=str(data[1]), tier=str(data[2]))
+        returned_movies.append(mov)
+
+    print('ALL Data fetched successfully, total rows: ', len(returned_movies))
+    return returned_movies
+
 # TODO do modyfikacji
 def get_data_about_movies(tier=None):
     conn = connect_to_db()
@@ -66,7 +106,7 @@ def get_data_about_movies(tier=None):
                 INNER JOIN account_types acc_t ON Mo.account_type_id = acc_t.account_type_id 
                 INNER JOIN genres Ge ON Mo.genre_id = Ge.genre_id
                 ORDER BY Mo.account_type_id;
-        """)
+                """)
     elif tier == 3:
         cur.execute("""
                 SELECT Mo.movie_title, Ge.genre_name, acc_t.account_type
@@ -74,7 +114,8 @@ def get_data_about_movies(tier=None):
                 INNER JOIN account_types acc_t ON Mo.account_type_id = acc_t.account_type_id 
                 INNER JOIN genres Ge ON Mo.genre_id = Ge.genre_id 
                 WHERE Mo.account_type_id < 4
-                ORDER BY Mo.account_type_id;""")
+                ORDER BY Mo.account_type_id;
+                """)
     elif tier == 2:
         cur.execute("""
                 SELECT Mo.movie_title, Ge.genre_name, acc_t.account_type

@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for, ses
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user, login_manager
 import psycopg2
 from flask import Blueprint, render_template
-from db import connect_to_db,get_data_about_movies
+from db import connect_to_db, get_data_about_movies, get_ALL_data_about_movies
 
 other_bp = Blueprint('other_routes', __name__)
 
@@ -18,10 +18,15 @@ def authors():
     return render_template("other_routes/authors.html")
 
 
-@other_bp.route("/movies")
+@other_bp.route("/movies", methods=["POST", "GET"])
 def movies():
-    movies_list = get_data_about_movies()
-    return render_template("other_routes/Movies.html", movies=movies_list)
+    if request.method == 'POST':
+        sort_type = int(request.form.get('sort'))
+        movies_list = get_ALL_data_about_movies(sort=sort_type)
+        return render_template("other_routes/Movies.html", movies=movies_list)
+    else:
+        movies_list = get_data_about_movies()
+        return render_template("other_routes/Movies.html", movies=movies_list)
 
 """
 @other_bp.route("/prices")
