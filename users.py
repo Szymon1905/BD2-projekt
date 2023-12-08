@@ -72,7 +72,7 @@ class User(UserMixin):
     def __init__(self, user_id, access_level):
         self.id = user_id
         self.access_level = access_level
-        self.roles = ['user']  # List to store user roles
+        self.roles = ['user']
 
     def set_admin_role(self):
         self.roles.append('admin')

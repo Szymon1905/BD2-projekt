@@ -23,7 +23,7 @@ def movies():
     movies_list = get_data_about_movies()
     return render_template("other_routes/Movies.html", movies=movies_list)
 
-
+"""
 @other_bp.route("/prices")
 def prices():
     return render_template("other_routes/Prices.html")
@@ -32,3 +32,4 @@ def prices():
 @other_bp.route("/coming_soon")
 def coming_soon():
     return render_template("other_routes/Coming_soon.html")
+"""
