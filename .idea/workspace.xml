@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e2526c7e-212d-4567-aa7b-55301b4d0406" name="Changes" comment="dodoano dane kont">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/other_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/other_routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/logo.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/static/logo_stare.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/users.py" afterDir="false" />
+    <list default="true" id="e2526c7e-212d-4567-aa7b-55301b4d0406" name="Changes" comment="usunięto coming soon i prices">
+      <change beforePath="$PROJECT_DIR$/templates/admin/add_movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/add_movie.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/delete_movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/delete_movie.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/modify_movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/modify_movie.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/other_routes/Movies.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/other_routes/Movies.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/users/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/users/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -338,7 +340,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701356827362</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="usunięto coming soon i prices">
+      <created>1702046653310</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1702046653311</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -367,6 +376,7 @@
     <MESSAGE value="refactor dir projektu" />
     <MESSAGE value="usuineto print" />
     <MESSAGE value="dodoano dane kont" />
-    <option name="LAST_COMMIT_MESSAGE" value="dodoano dane kont" />
+    <MESSAGE value="usunięto coming soon i prices" />
+    <option name="LAST_COMMIT_MESSAGE" value="usunięto coming soon i prices" />
   </component>
 </project>
