@@ -1,22 +1,25 @@
-DATABASE_USER = 'postgres'
-DATABASE_PASSWORD = 'famished'
-DATABASE_NAME = 'postgres'
-DATABASE_HOST = 'localhost'
-DATABASE_PORT = 5432
+import os
+from dotenv import load_dotenv
 
-"""
-DATABASE_USER = 'fdggxsxy'
-DATABASE_PASSWORD = 'fblPAJWqVJO-YUs7MyV6Itaje-NMrEA5'
-DATABASE_NAME = 'fdggxsxy'
-DATABASE_HOST = 'flora.db.elephantsql.com'
-DATABASE_PORT = 5432
-"""
+basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv()
 
-# ADMIN KONTO
-DATABASE_USER_A = 'ADMIN_ACC'
-DATABASE_PASSWORD_A = 'admin1'
 
-#USER KONTO
-DATABASE_USER_U = 'USER_ACC'
-DATABASE_PASSWORD_U = 'user1'
+class Config(object):
+    SECRET_KEY = os.getenv('SECRET_KEY')
+    #DEV_DATABASE_URL = os.getenv('DEV_DATABASE_URL')
+
+    DATABASE_USER = os.getenv('DATABASE_USER')
+    DATABASE_PASSWORD = os.getenv('DATABASE_PASSWORD')
+    DATABASE_NAME = os.getenv('DATABASE_NAME')
+    DATABASE_HOST = os.getenv('DATABASE_HOST')
+    DATABASE_PORT = os.getenv('DATABASE_PORT')
+
+    # ADMIN ACCOUNT
+    #DATABASE_USER_A = os.getenv('DATABASE_USER_A')
+    #DATABASE_PASSWORD_A = os.getenv('DATABASE_PASSWORD_A')
+
+    #USER ACCOUNT
+    #DATABASE_USER_U = os.getenv('DATABASE_USER_U')
+    #DATABASE_PASSWORD_U = os.getenv('DATABASE_PASSWORD_U')
 

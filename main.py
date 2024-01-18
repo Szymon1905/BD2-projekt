@@ -1,23 +1,17 @@
 from flask import Flask
 from flask_login import current_user
 from flask_principal import identity_loaded, RoleNeed
+from config import Config
 
-from encryption import bcrypt
-from extensions import log_manager, principal
-from config import DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME, DATABASE_HOST, DATABASE_PORT
-from users import users_bp
-from admins import admins_bp
-from other_routes import other_bp
+from app.encryption import bcrypt
+from app.extensions import log_manager, principal
+from app.users import users_bp
+from app.admins import admins_bp
+from app.other_routes import other_bp
 
 # Create the Flask application
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'SUS'  # Replace with a strong, random secret key
-
-app.config['DATABASE_USER'] = DATABASE_USER
-app.config['DATABASE_PASSWORD'] = DATABASE_PASSWORD
-app.config['DATABASE_NAME'] = DATABASE_NAME
-app.config['DATABASE_HOST'] = DATABASE_HOST
-app.config['DATABASE_PORT'] = DATABASE_PORT
+app = Flask(__name__, static_folder="app/static", template_folder="app/templates")
+app.config.from_object(Config)
 
 app.register_blueprint(users_bp)
 app.register_blueprint(admins_bp)
