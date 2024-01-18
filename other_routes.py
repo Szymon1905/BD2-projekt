@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template
-from db import connect_to_db, get_data_about_movies, get_ALL_data_about_movies
+from flask import Blueprint, render_template, request
+from db import get_data_about_movies, get_ALL_data_about_movies
 
 other_bp = Blueprint('other_routes', __name__)
 

@@ -1,6 +1,7 @@
 from flask import request, flash, redirect, url_for
 from flask_login import login_user, login_required, logout_user, current_user
 from flask import Blueprint, render_template
+from flask_login import UserMixin
 from flask_principal import RoleNeed, Permission, Identity, identity_changed
 import encryption
 from db import connect_to_db_online, get_data_about_movies, get_data_about_users

@@ -17,6 +17,7 @@ def connect_to_db_online():  # tylko do testów
         print("Database not connected successfully as admin")
 
 
+"""
 def connect_to_db_as_admin():
     try:
         conn = psycopg2.connect(
@@ -46,6 +47,8 @@ def connect_to_db_as_user():
         return conn
     except Exception:
         print("Database not connected successfully as user")
+"""
+
 
 def connect_to_db_as_user():
     try:
@@ -61,6 +64,7 @@ def connect_to_db_as_user():
     except Exception:
         print("Database not connected successfully")
 
+
 def connect_to_db_as_admin():
     try:
         conn = psycopg2.connect(
@@ -75,6 +79,7 @@ def connect_to_db_as_admin():
     except Exception:
         print("Database not connected successfully")
 
+
 class movie:
     def __init__(self, title, tier, genre):
         self.title = title
@@ -83,7 +88,7 @@ class movie:
 
 
 def get_ALL_data_about_movies(sort):
-    conn = connect_to_db()
+    conn = connect_to_db_as_user()
     cur = conn.cursor()
 
     match sort:
@@ -121,6 +126,7 @@ def get_ALL_data_about_movies(sort):
 
     print('ALL Data fetched successfully, total rows: ', len(returned_movies))
     return returned_movies
+
 
 # TODO do modyfikacji
 def get_data_about_movies(tier=None):
