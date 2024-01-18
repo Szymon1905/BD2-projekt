@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title> Capybara Admin - zmień dane filmu </title>
+  <link rel="stylesheet" href="../../static/css/add_movie.css" />
+</head>
+
+<body>
+  <a href="/admin_panel" class="powrot">Panel admina</a>
+  <div align="center">
+    <div align="center" class="border">
+      <div class="header">
+        <h1 class="word">Zmień dane filmu</h1>
+      </div>
+      <h2 class="word">
+        <form action="{{ url_for('admins.modify_movie') }}" method="post">
+          <div class="msg">{{ msg }}</div>
+
+          <label for="title_selector">Tytuł do zmiany</label>
+          <input id="title_selector" name="title_selector" type="text" placeholder="title to modify" class="textbox" />
+
+          <label for="title">Nowy tytuł</label>
+          <input id="title" name="title" type="text" placeholder="enter new movie title" class="textbox" />
+
+          <label for="description">Opis</label>
+          <input id="description" name="description" type="text" placeholder="optional" class="textbox" />
+
+          <label for="required_account_type">Required account tier:</label>
+          <select name="required_account_type" id="required_account_type">
+            <option value=0>Bez zmiany</option>
+            <option value=2>Bronze</option>
+            <option value=3>Silver</option>
+            <option value=4>Gold</option>
+          </select>
+
+          <label for="genre_id">Genre:</label>
+          <select name="genre_id" id="genre_id">
+            <option value=0>Bez zmiany</option>
+            <option value=1>Horror</option>
+            <option value=2>Akcji</option>
+            <option value=3>Dokumentalny</option>
+            <option value=4>Komedia</option>
+            <option value=5>Obyczajowy</option>
+            <option value=6>Klasyczny</option>
+            <option value=7>Romantyczny</option>
+          </select>
+          <input type="submit" class="btn" value="MODIFY">
+        </form>
+      </h2>
+    </div>
+  </div>
+
+  <table>
+    <caption>Wszystkie filmy w bazie</caption>
+    <thead>
+      <tr>
+        <th>Tytuł</th>
+        <th>Gatunek</th>
+        <th>Tier</th>
+      <tr>
+    </thead>
+    <tbody>
+      {% for movie in movies %}
+      <tr>
+        <td>{{ movie.title }}</td>
+        <td>{{ movie.genre }}</td>
+        <td class="{% if movie.tier == 'Gold' %}Gold{% elif movie.tier == 'Silver' %}Silver{% else %}Bronze{% endif %}">
+          {{ movie.tier }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for msg in messages %}
+  <p>{{msg}}</p>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+</body>
+
+</html>

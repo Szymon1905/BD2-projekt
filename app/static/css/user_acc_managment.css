@@ -1,0 +1,34 @@
+.container {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 20px;
+    background-color: #1e1e2e;
+    border-radius: 5px;
+    float: left;
+
+}
+
+.button-container {
+    text-align: center;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 10px;
+    background-color: rgb(223, 13, 105);
+    color: #cdd6f4;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button-admin {
+    display: inline-block;
+    padding: 10px 10px;
+    background-color: #dd05dd;
+    color: 11111b;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}

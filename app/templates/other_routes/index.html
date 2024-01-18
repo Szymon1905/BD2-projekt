@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Capybara</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/index.css" />
+</head>
+
+<body>
+    <div class="banner">
+        <img src="../../static/images/logo.jpg" alt="Logo" width="20%" height="auto" />
+        <h2 class="linear-wipe">Capybara</h2>
+    </div>
+
+    <div style="overflow:auto; flex: 1 0 auto;">
+        <div class="menu">
+            <a href="{{ url_for('other_routes.index') }}">Witaj</a>
+            <a href="{{ url_for('users.login') }}">Zaloguj się</a>
+            <a href="{{ url_for('users.register') }}">Zarejestruj się</a>
+            <a href="{{ url_for('other_routes.movies') }}">Filmy</a>
+            <a href="{{ url_for('other_routes.authors') }}">Twórcy</a>
+        </div>
+
+        <div class="main">
+            {% block body %}
+
+            <p style="color: rgb(223, 13, 105)"> Witamy na Capybarze</p>
+            <p> Będziesz się dobrze bawić. Nie masz wyboru </p>
+            <p class="smol"> Załóż konto i zobacz najnowsze filmy w naszej bazie. Do wyboru mamy trzy rodzaje kont.</p>
+
+            {% endblock %}
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <p> Capybara 2023 </p>
+    </div>
+
+</body>
+
+</html>

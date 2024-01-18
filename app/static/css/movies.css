@@ -1,0 +1,79 @@
+table {
+  border-collapse: collapse;
+  background: #313244;
+  color:#1e1e2e;
+  border: none;
+  text-align: center;
+  vertical-align: middle;
+  clear: left;
+  margin: 8px;
+}
+
+select {
+  background: #313244;
+  color: #cdd6f4;
+  border: none;
+  border-radius: 15px;
+  padding: 8px;
+  font-size: 20px;
+  margin: 20px;
+}
+
+td {
+  background: #313244;
+  color: #cdd6f4;
+	border: 2px solid #1e1e2e;
+	padding: 16px;
+}
+
+thead th {
+  width: 25%;
+}
+
+thead {
+  background-color: #dd05dd;
+  color: #1e1e2e;
+  font-size: 32px;
+  border: 2px solid #1e1e2e;
+	padding: 20px;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+caption {
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.Gold {
+  background-color: rgb(149, 141, 59);
+  font-weight: bold;
+}
+.Silver {
+  background-color: rgb(113, 109, 107);
+  font-weight: bold;
+}
+
+.Bronze {
+  background-color: rgb(79, 66, 61);
+  font-weight: bold;
+}
+
+.spacer {
+    padding-bottom: 20px; /* Adjust the value as needed */
+}
+
+.btn {
+  background: radial-gradient(circle, rgb(223, 13, 105) 0%, rgb(213, 83, 27) 100%);
+  color:#1e1e2e;
+  border: none;
+  border-radius: 15px;
+  padding: 8px;
+  font-size: 20px;
+  margin: 20px;
+}

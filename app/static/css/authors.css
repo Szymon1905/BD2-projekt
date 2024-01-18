@@ -1,0 +1,31 @@
+.author img {
+    border-radius: 50%;
+    width: 100%;
+}
+
+.panel {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    height: 100%;
+    background-color: #1e1e2e;
+    display: flex;
+    flex-direction: row;
+}
+
+.author {
+    float: left;
+    background-color: #585b70;
+    font-weight: bold;
+    height: 400px;
+    width: 300px;
+    padding: 30px;
+    padding-bottom: 0px;
+    margin: 30px;
+    border-radius: 20px;
+}
+
+.desc {
+    font-weight: normal;
+    font-size: 16px;
+    color: #a6adc8;
+}

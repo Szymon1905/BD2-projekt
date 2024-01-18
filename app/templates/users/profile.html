@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>User panel</title>
+  <link rel="stylesheet" href="../../static/css/movies.css" />
+  <link rel="stylesheet" href="../../static/css/user_acc_managment.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="button-container">
+      <button class="button" onclick="location.href='{{ url_for('users.logout') }}'">Wyloguj</button>
+      <button class="button" onclick="location.href='{{ url_for('users.delete_account') }}'">Usuń konto</button>
+    </div>
+  </div>
+
+  <table>
+    <caption>Filmy dostępne dla użytkownika <span style="color: rgb(223, 13, 105);">{{ nick }}</span> z tieru: {{ account_type }}
+    </caption>
+    <thead>
+      <tr>
+        <th>Tytuł</th>
+        <th>Gatunek</th>
+        <th>Tier</th>
+      <tr>
+    </thead>
+    <tbody>
+      {% for movie in movies %}
+      <tr>
+        <td>{{ movie.title }}</td>
+        <td>{{ movie.genre }}</td>
+        <td class="{% if movie.tier == 'Gold' %}Gold{% elif movie.tier == 'Silver' %}Silver{% else %}Bronze{% endif %}">
+          {{ movie.tier }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+
+</html>

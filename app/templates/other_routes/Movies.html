@@ -1,0 +1,41 @@
+{% extends 'other_routes/index.html' %}
+{% block body %}
+
+<head>
+  <title>Capybara - Filmy</title>
+  <link rel="stylesheet" href="../../static/css/movies.css" />
+</head>
+
+<body>
+  <div class="spacer"></div>
+  <form action="{{ url_for('other_routes.movies') }}" method="post">
+    <select name="sort" id="sort">
+      <option value=1>Tier</option>
+      <option value=2>Tytuł</option>
+      <option value=3>Gatunek</option>
+    </select>
+    <input type="submit" class="btn" value="Sortuj">
+  </form>
+  <table>
+    <caption style="color: #cdd6f4">Lista filmów dostępna w bazie</caption>
+    <thead>
+      <tr>
+        <th>Tytuł</th>
+        <th>Gatunek</th>
+        <th>Tier</th>
+      <tr>
+    </thead>
+    <tbody>
+      {% for movie in movies %}
+      <tr>
+        <td>{{ movie.title }}</td>
+        <td>{{ movie.genre }}</td>
+        <td class="{% if movie.tier == 'Gold' %}Gold{% elif movie.tier == 'Silver' %}Silver{% else %}Bronze{% endif %}">
+          {{ movie.tier }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+
+{% endblock %}

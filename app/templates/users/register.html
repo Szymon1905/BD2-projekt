@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title> Capybara - Rejestracja </title>
+  <link rel="stylesheet" href="/static/css/register.css" />
+</head>
+
+<body>
+  <div class="banner">
+    <img src="../../static/images/logo.jpg" alt="logo image" width="20%" height="auto" />
+    <h2 class="linear-wipe">Capybara</h2>
+    <a class="click" href="/" style="float: left; margin-left: 16px; margin-bottom: 8px">Strona główna</a>
+  </div>
+
+  <div align="center" style="flex: 1 0 auto">
+    <div class="registerbox">
+      <div class="header">
+        <h1 class="word" style="font-size: 20;">Zarejestruj się</h1>
+      </div>
+      <h2 class="word">
+        <form action="{{ url_for('users.register') }}" method="post">
+          <div class="msg">{{ msg }}</div>
+          <input id="username" name="username" type="text" placeholder="Nazwa użytkownika" class="textbox" />
+          <input id="password" name="password" type="password" placeholder="Hasło" class="textbox" />
+          <label for="account_type">Wybierz rodzaj konta</label>
+          <select name="account_type" id="account_type">
+            <option value=2>Bronze</option>
+            <option value=3>Silver</option>
+            <option value=4>Gold</option>
+          </select>
+          <input type="submit" class="btn" value="Załóż konto">
+        </form>
+      </h2>
+      <p class="bottom">Masz już konto? <a class="click" href="{{url_for('users.login')}}">Zaloguj się</a>
+      </p>
+    </div>
+  </div>
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for msg in messages %}
+  <p>{{msg}}</p>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <div class="footer">
+    <p> Capybara 2023 </p>
+  </div>
+</body>
+
+</html>

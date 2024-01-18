@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title> Capybara - Logowanie </title>
+    <link rel="stylesheet" href="../../static/css/login.css" />
+</head>
+
+<body>
+
+    <div class="banner">
+        <img src="../../static/images/logo.jpg" alt="logo image" width="20%" height="auto" />
+        <h2 class="linear-wipe">Capybara</h2>
+        <a class="click" href="/" style="float: left; margin-left: 16px; margin-bottom: 8px">Strona główna</a>
+    </div>
+
+    <div align="center" style="flex: 1 0 auto">
+        <div class="loginbox">
+            <h2>Zaloguj się</h2>
+            <h2 class="word">
+                <form action="{{ url_for('users.login') }}" method="post">
+                    <div class="msg">{{ msg }}</div>
+                    <input id="nick" name="nick" type="text" placeholder="Nazwa użytkownika" class="textbox" />
+                    <input id="password" name="password" type="password" placeholder="Hasło" class="textbox" />
+                    <input type="submit" class="btn" value="Zaloguj">
+                </form>
+            </h2>
+            <p class="bottom">Nie posiadasz konta? <a class="click" href="{{url_for('users.register')}}">Zarejestruj
+                    się</a>
+            </p>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for msg in messages %}
+            <p>{{msg}}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+    <div class="footer">
+        <p> Capybara 2023 </p>
+    </div>
+</body>
+
+</html>

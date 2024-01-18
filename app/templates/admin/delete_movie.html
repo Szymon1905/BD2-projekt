@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title> Capybara Admin - Usuń film </title>
+  <link rel="stylesheet" href="../../static/css/add_movie.css" />
+</head>
+
+<body>
+  <a href="/admin_panel" class="powrot">Panel admina</a>
+  <div align="center">
+    <div align="center" class="border">
+      <div class="header">
+        <h1 class="word">Usuń film</h1>
+      </div>
+      <h2 class="word">
+        <form action="{{ url_for('admins.delete_movie') }}" method="post">
+          <div class="msg">{{ msg }}</div>
+
+          <label for="title">Title of movie to delete:</label>
+          <input id="title" name="title" type="text" placeholder="enter movie title" class="textbox" />
+
+          <input type="submit" class="btn" value="DELETE">
+        </form>
+
+      </h2>
+    </div>
+  </div>
+
+  <table>
+    <caption>Wszystkie filmy w bazie</caption>
+    <thead>
+      <tr>
+        <th>Tytuł</th>
+        <th>Gatunek</th>
+        <th>Tier</th>
+      <tr>
+    </thead>
+    <tbody>
+      {% for movie in movies %}
+      <tr>
+        <td>{{ movie.title }}</td>
+        <td>{{ movie.genre }}</td>
+        <td class="{% if movie.tier == 'Gold' %}Gold{% elif movie.tier == 'Silver' %}Silver{% else %}Bronze{% endif %}">
+          {{ movie.tier }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for msg in messages %}
+  <p>{{msg}}</p>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+</html>
